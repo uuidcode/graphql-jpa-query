@@ -1,9 +1,17 @@
+
 spring:
   jpa:
-    hibernate.ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: create-drop
     show-sql: true
-  h2:
-    console.enabled: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/graphql
+    username: root
+    password: rootroot
+    driver-class-name: com.mysql.jdbc.Driver
 
   graphql:
     jpa:
@@ -11,3 +19,7 @@ spring:
         name: GraphQLJpaQueryStarwars
         description: GraphQL Jpa Query Starwars Schema Example
         enabled: true
+server:
+  port: 10626
+logging:
+  level: debug

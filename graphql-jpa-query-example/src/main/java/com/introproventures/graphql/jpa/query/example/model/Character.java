@@ -35,14 +35,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
+@Entity(name = "characters")
 @GraphQLDescription("Abstract representation of an entity in the Star Wars Universe")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode(exclude={"appearsIn","friends"}) // Fixes NPE in Hibernate when initializing loaded collections #1
 public abstract class Character {
-
     @Id
     @GraphQLDescription("Primary Key for the Character Class")
     String id;
@@ -53,16 +52,16 @@ public abstract class Character {
     @GraphQLDescription("Who are the known friends to this character")
     @ManyToMany
     @JoinTable(name="character_friends",
-            joinColumns=@JoinColumn(name="source_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="friend_id", referencedColumnName="id"))
-    Set<Character> friends; 
+        joinColumns=@JoinColumn(name="source_id", referencedColumnName="id"),
+        inverseJoinColumns=@JoinColumn(name="friend_id", referencedColumnName="id"))
+    Set<Character> friends;
 
     @GraphQLDescription("What Star Wars episodes does this character appear in")
     @ElementCollection(targetClass = Episode.class)
     @Enumerated(EnumType.ORDINAL)
     @OrderBy
     Set<Episode> appearsIn;
-    
+
     Character() {}
 
 }
