@@ -8,10 +8,10 @@ spring:
       ddl-auto: create-drop
     show-sql: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/graphql
+    url: jdbc:p6spy:mysql://127.0.0.1:3306/graphql
     username: root
     password: rootroot
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
   graphql:
     jpa:
@@ -19,7 +19,10 @@ spring:
         name: GraphQLJpaQueryStarwars
         description: GraphQL Jpa Query Starwars Schema Example
         enabled: true
+
 server:
   port: 10626
+
 logging:
-  level: debug
+  level:
+    root: debug
